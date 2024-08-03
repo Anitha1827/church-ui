@@ -1,0 +1,79 @@
+.parent{
+    display: flex;
+    justify-content: center;
+    
+  }
+.wid{
+    margin:15px;
+    padding:8px;
+    width: 210mm; /* A4 width */
+    height: 297mm; /* A4 height */ 
+    padding: 20px;
+    text-align: left;
+    background: white;
+    color: #000;
+  }
+  input{
+    text-align: center;
+  }
+  
+  .head {
+    border-bottom: 6px double #333;
+    }
+    .font{
+      text-align:center;
+      font-size:20px;
+      font-style: italic;
+    }
+    .date{
+      border: none;
+      outline: none;
+      border-bottom: 1px solid black; 
+      width:20%;
+    }
+    .short{
+      border: none;
+      outline: none;
+      border-bottom: 1px solid black; 
+      width:100%;
+    }
+    label{
+      font-size:20px;
+    }
+    td{
+    height:30px;
+  }
+  table {
+    width: 80%;
+  }
+  .long{
+    border: none;
+    outline: none;
+    border-bottom: 1px solid black; 
+    width:90%;
+  }
+  
+  
+  body {
+    background: rgb(204,204,204); 
+  }
+  
+  page {
+    background: white;
+    display: block;
+    margin: auto;
+    margin-bottom: 0.5cm;
+    box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+  }
+  page[size="A4"] {  
+    width: 21cm;
+    height: 29.7cm; 
+  }
+  @media print {
+    body, page {
+      background: white;
+      margin: 0;
+      box-shadow: 0;
+    }
+  }
+  

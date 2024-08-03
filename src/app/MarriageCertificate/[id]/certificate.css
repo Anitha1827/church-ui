@@ -1,0 +1,91 @@
+
+.parent{
+  display: flex;
+  justify-content: center;
+  
+}
+.wid{
+  width: 210mm; /* A4 width */
+  height: 297mm; /* A4 height */ 
+  padding: 20px;
+  text-align: left;
+  background: white;
+  color: #000;
+  }
+  table, th, td, tr {
+    border:1px solid black;
+    border-collapse: collapse;
+  }
+  
+  th{
+    height: 50px;
+    width:20%;
+  }
+  td{
+    height: 35px;
+    text-align: center;
+  }
+  .head {
+    border-bottom: 6px double #333;
+    }
+    .kep {
+      border: none;
+      outline: none;
+      border-bottom: 1px solid black; 
+      width:90%;
+      text-align: center;
+    }
+    .kept {
+      border: none;
+      outline: none;
+      border-bottom: 1px solid black; 
+      width:97%;
+    }
+    input[type="text"] {
+      border: none;
+      outline: none;
+      border-bottom: 1px solid black; 
+      text-align: center;
+    }
+    .foot{
+      border: none;
+      outline: none;
+      border-bottom: 1px solid black; 
+      width:38%;
+    }
+    .font{
+      text-align:center;
+      font-size:25px;
+      font-style: italic;
+    }
+    .date{
+      border: none;
+      outline: none;
+      border-bottom: 1px solid black; 
+      width:20%;
+    }
+  
+  
+    body {
+      background: rgb(204,204,204); 
+    }
+  
+    page {
+      background: white;
+      display: block;
+      margin: auto;
+      margin-bottom: 0.5cm;
+      box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+    }
+    page[size="A4"] {  
+      width: 21cm;
+      height: 29.7cm; 
+    }
+    @media print {
+      body, page {
+        background: white;
+        margin: 0;
+        box-shadow: 0;
+      }
+    }
+  

@@ -1,0 +1,47 @@
+.wid{
+    margin:15px;
+    padding:8px;
+}
+.head {
+    color:white;
+    text-align:center;
+    border-bottom: 8px double #5D3FD3;
+}
+h1{
+    color:#E30B5C;
+}
+h3{
+    color:#E30B5C;
+
+}
+.let{
+    color:#5D3FD3;
+    line-height:0.5;
+    float:right;
+}
+p{
+    font-weight:600;
+}
+
+body {
+    background: rgb(204,204,204); 
+  }
+
+  page {
+    background: white;
+    display: block;
+    margin: auto;
+    margin-bottom: 0.5cm;
+    box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+  }
+  page[size="A4"] {  
+    width: 21cm;
+    height: 29.7cm; 
+  }
+  @media print {
+    body, page {
+      background: white;
+      margin: 0;
+      box-shadow: 0;
+    }
+  }

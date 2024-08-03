@@ -1,0 +1,87 @@
+.parent{
+    display: flex;
+    justify-content: center;
+    
+  }
+.wid{
+    margin:15px;
+    padding:8px;
+    width: 210mm; /* A4 width */
+    height: 297mm; /* A4 height */ 
+    padding: 20px;
+    text-align: left;
+    background: white;
+    color: #000;
+}
+input{
+    text-align: center;
+}
+.head {
+    border-bottom: 6px double #333;
+    line-height:0.8;
+}
+img{
+    width:38%;
+}
+.foot {
+    border: none;
+    outline: none;
+    border-bottom: 1px solid black;
+    width:60%;
+}
+.lab{
+    height:30px;
+    width:20%;
+}
+table{
+    
+    margin-left: auto;
+    margin-right: auto;
+    width:100%;
+}
+  .label{
+    height:30px;
+    width:20%;
+}
+.text{
+    border: none;
+    outline: none;
+    border-bottom: 1px solid black; 
+    width:80%;
+}
+.imp{
+    border: none;
+    outline: none;
+    border-bottom: 1px solid black; 
+    width:40%;
+}
+.foo {
+    border: none;
+    outline: none;
+    border-bottom: 1px solid black; 
+    width: 20%;
+}
+
+ 
+body {
+    background: rgb(204,204,204); 
+  }
+
+  page {
+    background: white;
+    display: block;
+    margin: auto;
+    margin-bottom: 0.5cm;
+    box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+  }
+  page[size="A4"][layout="landscape"] {
+    width: 29.7cm;
+    height: 21cm;  
+  }
+  @media print {
+    body, page {
+      background: white;
+      margin: 0;
+      box-shadow: 0;
+    }
+  }

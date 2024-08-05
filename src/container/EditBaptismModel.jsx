@@ -23,38 +23,20 @@ const style = {
 
 const EditBaptismModel = ({ editbaptism, setEditBaptism, data }) => {
   const { saveData } = useSaveData();
-  const [name, setName] = useState(data.name ? data.name : "");
-  const [sex, setSex] = useState(data.sex ? data.sex : "");
-  const [dateOfBirth, setDateOfBirth] = useState(
-    data.dateOfBirth ? data.dateOfBirth : ""
-  );
-  const [placeOfBirth, setPlaceOfBirth] = useState(
-    data.placeOfBirth ? data.placeOfBirth : ""
-  );
-  const [dateOfBaptism, setDateOfBaptism] = useState(
-    data.dateOfBaptism ? data.dateOfBaptism : ""
-  );
-  const [placeOfBaptism, setPlaceOfBaptism] = useState(
-    data.placeOfBaptism ? data.placeOfBaptism : ""
-  );
-  const [fatherName, setFatherName] = useState(
-    data.fatherName ? data.fatherName : ""
-  );
-  const [motherName, setMotherName] = useState(
-    data.motherName ? data.motherName : ""
-  );
-  const [residence, setResidence] = useState(
-    data.residence ? data.residence : ""
-  );
-  const [caste, setCaste] = useState(data.caste ? data.caste : "");
-  const [godFather, setGodFather] = useState(
-    data.godFather ? data.godFather : ""
-  );
-  const [godMother, setGodMother] = useState(
-    data.godMother ? data.godMother : ""
-  );
-  const [Minister, setMinister] = useState(data.Minister ? data.Minister : "");
-  const [textArea, setTextArea] = useState(data.textArea ? data.textArea : "");
+  const [name, setName] = useState(data.name || "");
+  const [sex, setSex] = useState(data.sex || "");
+  const [dateOfBirth, setDateOfBirth] = useState(data.dateOfBirth || "");
+  const [placeOfBirth, setPlaceOfBirth] = useState(data.placeOfBirth || "");
+  const [dateOfBaptism, setDateOfBaptism] = useState(data.dateOfBaptism || "");
+  const [placeOfBaptism, setPlaceOfBaptism] = useState(data.placeOfBaptism || "");
+  const [fatherName, setFatherName] = useState(data.fatherName || "");
+  const [motherName, setMotherName] = useState(data.motherName || "");
+  const [residence, setResidence] = useState(data.residence || "");
+  const [caste, setCaste] = useState(data.caste || "");
+  const [godFather, setGodFather] = useState(data.godFather || "");
+  const [godMother, setGodMother] = useState(data.godMother || "");
+  const [Minister, setMinister] = useState(data.Minister || "");
+  const [textArea, setTextArea] = useState(data.textArea || "");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -73,7 +55,7 @@ const EditBaptismModel = ({ editbaptism, setEditBaptism, data }) => {
       godMother,
       Minister,
       textArea,
-      id:data.id,
+      id: data.id,
     };
     try {
       const fileName = "Baptism.json";
@@ -84,17 +66,24 @@ const EditBaptismModel = ({ editbaptism, setEditBaptism, data }) => {
         },
         body: JSON.stringify({
           id: data.id,
-          updates
+          updates,
         }),
       });
       const result = await response.json();
       console.log(result.message);
+      handleClose();
+      editbaptism();
     } catch (error) {
       console.error("Error:", error);
     }
   };
 
   const handleClose = () => setEditBaptism(false);
+
+  const handleChange = (setter) => (e) => {
+    setter(e.target.value);
+  };
+
   return (
     <div>
       <Modal
@@ -123,7 +112,7 @@ const EditBaptismModel = ({ editbaptism, setEditBaptism, data }) => {
                       id="Name"
                       name="Name"
                       value={name}
-                      onChange={(e) => setName(e.target.value)}
+                      onChange={handleChange(setName)}
                       className="input"
                       required
                     />
@@ -140,7 +129,7 @@ const EditBaptismModel = ({ editbaptism, setEditBaptism, data }) => {
                       id="sex"
                       name="sex"
                       value={sex}
-                      onChange={(e) => setSex(e.target.value)}
+                      onChange={handleChange(setSex)}
                       className="input"
                       required
                     />
@@ -160,7 +149,7 @@ const EditBaptismModel = ({ editbaptism, setEditBaptism, data }) => {
                       name="date"
                       className="input"
                       value={dateOfBirth}
-                      onChange={(e) => setDateOfBirth(e.target.value)}
+                      onChange={handleChange(setDateOfBirth)}
                       required
                     />
                   </div>
@@ -177,7 +166,7 @@ const EditBaptismModel = ({ editbaptism, setEditBaptism, data }) => {
                       name="placeofbirth"
                       className="input"
                       value={placeOfBirth}
-                      onChange={(e) => setPlaceOfBirth(e.target.value)}
+                      onChange={handleChange(setPlaceOfBirth)}
                       required
                     />
                   </div>
@@ -196,7 +185,7 @@ const EditBaptismModel = ({ editbaptism, setEditBaptism, data }) => {
                       name="dateofbaptism"
                       className="input"
                       value={dateOfBaptism}
-                      onChange={(e) => setDateOfBaptism(e.target.value)}
+                      onChange={handleChange(setDateOfBaptism)}
                     />
                   </div>
                   <div className="keptAtChilde">
@@ -212,7 +201,7 @@ const EditBaptismModel = ({ editbaptism, setEditBaptism, data }) => {
                       name="placeofbaptism"
                       className="input"
                       value={placeOfBaptism}
-                      onChange={(e) => setPlaceOfBaptism(e.target.value)}
+                      onChange={handleChange(setPlaceOfBaptism)}
                     />
                   </div>
                 </div>
@@ -230,7 +219,7 @@ const EditBaptismModel = ({ editbaptism, setEditBaptism, data }) => {
                       name="fatherName"
                       className="input"
                       value={fatherName}
-                      onChange={(e) => setFatherName(e.target.value)}
+                      onChange={handleChange(setFatherName)}
                     />
                   </div>
                   <div className="keptAtChilde">
@@ -246,7 +235,7 @@ const EditBaptismModel = ({ editbaptism, setEditBaptism, data }) => {
                       name="motherName"
                       className="input"
                       value={motherName}
-                      onChange={(e) => setMotherName(e.target.value)}
+                      onChange={handleChange(setMotherName)}
                     />
                   </div>
                 </div>
@@ -264,7 +253,7 @@ const EditBaptismModel = ({ editbaptism, setEditBaptism, data }) => {
                       name="residence"
                       className="input"
                       value={residence}
-                      onChange={(e) => setResidence(e.target.value)}
+                      onChange={handleChange(setResidence)}
                     />
                   </div>
                   <div className="keptAtChilde">
@@ -280,7 +269,7 @@ const EditBaptismModel = ({ editbaptism, setEditBaptism, data }) => {
                       name="caste"
                       className="input"
                       value={caste}
-                      onChange={(e) => setCaste(e.target.value)}
+                      onChange={handleChange(setCaste)}
                     />
                   </div>
                 </div>
@@ -298,7 +287,7 @@ const EditBaptismModel = ({ editbaptism, setEditBaptism, data }) => {
                       name="godfather"
                       className="input"
                       value={godFather}
-                      onChange={(e) => setGodFather(e.target.value)}
+                      onChange={handleChange(setGodFather)}
                     />
                   </div>
                   <div className="keptAtChilde">
@@ -314,7 +303,7 @@ const EditBaptismModel = ({ editbaptism, setEditBaptism, data }) => {
                       name="godmother"
                       className="input"
                       value={godMother}
-                      onChange={(e) => setGodMother(e.target.value)}
+                      onChange={handleChange(setGodMother)}
                     />
                   </div>
                 </div>
@@ -332,7 +321,7 @@ const EditBaptismModel = ({ editbaptism, setEditBaptism, data }) => {
                       name="minister"
                       className="input"
                       value={Minister}
-                      onChange={(e) => setMinister(e.target.value)}
+                      onChange={handleChange(setMinister)}
                     />
                   </div>
                   <div className="keptAttextarea mb-4">
@@ -344,7 +333,7 @@ const EditBaptismModel = ({ editbaptism, setEditBaptism, data }) => {
                       minRows={2}
                       placeholder="Type anything…"
                       value={textArea}
-                      onChange={(e) => setTextArea(e.target.value)}
+                      onChange={handleChange(setTextArea)}
                     />
                   </div>
                 </div>

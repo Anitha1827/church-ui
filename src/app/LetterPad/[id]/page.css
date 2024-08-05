@@ -1,6 +1,18 @@
+.parent{
+  display: flex;
+  justify-content: center;
+  background-color: transparent;
+  align-items: baseline;
+}
 .wid{
-    margin:15px;
-    padding:8px;
+  margin:15px;
+  padding:8px;
+  width: 210mm; /* A4 width */
+  height: 297mm; /* A4 height */ 
+  padding: 20px;
+  text-align: left;
+  background: white;
+  color: #000;
 }
 .head {
     color:white;

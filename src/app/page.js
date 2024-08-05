@@ -14,6 +14,8 @@ import EditMarriageCertificateModel from "@/container/EditMarriageCertificateMod
 import BaptismDetails from "@/container/BaptismDetails";
 import MarriageDetails from "@/container/MarriageDetails";
 import MarriageCertificateDetail from "@/container/MarriageCertificateDetail";
+import LetterPadDetails from "@/container/LetterPadDetails";
+import LetterPadModel from "@/container/LetterPadModel";
 // import Image from "next/image";
 const style = {
   position: "absolute",
@@ -31,7 +33,7 @@ const style = {
 export default function Home() {
   //select usestate
   const [option, setOption] = useState("");
-  const tabs = ["Baptism", "MarriageForm", "MarriageCertificate"];
+  const tabs = ["Baptism", "MarriageForm", "MarriageCertificate","LetterPad"];
   const [tabActive, setTabActive] = useState("Baptism");
   const renderPage = () => {
     switch (tabActive) {
@@ -41,6 +43,8 @@ export default function Home() {
         return <MarriageDetails />;
       case "MarriageCertificate":
         return <MarriageCertificateDetail />;
+        case "LetterPad":
+        return <LetterPadDetails />;
       default:
         return null;
     }
@@ -74,6 +78,10 @@ export default function Home() {
   // Marriage Form modal
   const [marriageForm, setMarriageForm] = useState(false);
   const handleMarriageForm = () => setMarriageForm(true);
+
+  // Letter pad modal
+  const [letterPad, setLetterPad] = useState(false)
+  const handleLetterPad = () => setLetterPad(true)
 
   const [editdata, setEditData] = useState();
 
@@ -143,6 +151,12 @@ export default function Home() {
                 >
                   Marriage Form
                 </MenuItem>
+                <MenuItem
+                  value={letterPad}
+                  onClick={() => handleLetterPad()}
+                >
+                  LetterPad
+                </MenuItem>
               </Select>
             </FormControl>
           </Box>
@@ -170,6 +184,8 @@ export default function Home() {
           marriageForm={marriageForm}
           setMarriageForm={setMarriageForm}
         />
+        {/* Letter Pad */}
+        <LetterPadModel  letterPad = {letterPad} setLetterPad={setLetterPad}/>
       </div>
     </main>
   );

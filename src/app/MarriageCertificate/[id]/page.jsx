@@ -69,7 +69,7 @@ const MarriageCertificate = () => {
             Home
           </button>
         </div>
-        <div className="wid">
+        <div className="wid" id="printable-form" >
           <div className="head" align="center">
             <h1 style={{ fontWeight: "bold", fontSize: "30px" }}>
               ST.ANTONY`S CHURCH

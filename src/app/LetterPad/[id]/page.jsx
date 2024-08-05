@@ -60,7 +60,7 @@ const LetterPad = () => {
           Home
         </button>
       </div>
-      <div class="wid">
+      <div class="wid" id="printable-form">
         <div class="head">
           <h1 style={{ fontWeight: "bold", fontSize: "30px" }}>
             ST.ANTONY`S CHURCH

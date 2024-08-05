@@ -44,7 +44,7 @@ const MarriageForm = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [id]);
   // print functionalities
   const handlePrint = () => {
     window.print();

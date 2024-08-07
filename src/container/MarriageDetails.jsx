@@ -2,8 +2,9 @@
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import EditMarriageFormModel from "./EditMarriageFormModel";
+import dayjs from "dayjs";
 
-const MarriageDetails = () => {
+const MarriageDetails = ({search,pickDate}) => {
   //Date formate
   const convertIdToDate = (id) => {
     const [datePart, timePart] = id.split("-").slice(1);
@@ -14,6 +15,32 @@ const MarriageDetails = () => {
   };
 
   const [data, setData] = useState([]);
+  const[filteredData, setFilteredData] = useState(data);
+
+  useEffect(() => {
+    let result = data;
+    // Filter by name search
+    if (search.length > 0) {
+      result = result.filter((val) => val.mr.toLowerCase().includes(search.toLowerCase()));
+    }
+
+    // Filter by selected date (year and month)
+    if (pickDate) {
+      const selectedMonth = dayjs(pickDate).format('MM-YYYY');
+      result = result.filter((val) => {
+        // Assuming date field exists and is in a valid date format
+        // Replace `dateField` with the actual date field in your data
+        const dateField = convertIdToDate(val.id); // or any other date field you want to filter by
+        if (dateField) {
+          const formattedDate = dayjs(dateField).format('MM-YYYY');
+          return formattedDate === selectedMonth;
+        }
+        return false;
+      });
+    }
+
+    setFilteredData(result);
+  }, [search, pickDate, data]);
   let router = useRouter();
   // Fetch data from API
   useEffect(() => {
@@ -74,7 +101,7 @@ const MarriageDetails = () => {
           </tr>
         </thead>
         <tbody>
-          {data.map((val, idx) => (
+          {filteredData.length > 0 && filteredData.map((val, idx) => (
             <tr key={idx}>
               <td className="py-2 px-4 border-b text-center">{idx + 1}</td>
               <td className="py-2 px-4 border-b text-center">{val.mr}</td>

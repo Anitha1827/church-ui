@@ -16,6 +16,13 @@ import MarriageDetails from "@/container/MarriageDetails";
 import MarriageCertificateDetail from "@/container/MarriageCertificateDetail";
 import LetterPadDetails from "@/container/LetterPadDetails";
 import LetterPadModel from "@/container/LetterPadModel";
+// date picker
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
+
 // import Image from "next/image";
 const style = {
   position: "absolute",
@@ -33,18 +40,20 @@ const style = {
 export default function Home() {
   //select usestate
   const [option, setOption] = useState("");
-  const tabs = ["Baptism", "MarriageForm", "MarriageCertificate","LetterPad"];
+  const tabs = ["Baptism", "MarriageForm", "MarriageCertificate", "LetterPad"];
   const [tabActive, setTabActive] = useState("Baptism");
   const renderPage = () => {
     switch (tabActive) {
       case "Baptism":
-        return <BaptismDetails />;
+        return <BaptismDetails search={search} pickDate={pickDate} />;
       case "MarriageForm":
-        return <MarriageDetails />;
+        return <MarriageDetails search={search} pickDate={pickDate} />;
       case "MarriageCertificate":
-        return <MarriageCertificateDetail />;
-        case "LetterPad":
-        return <LetterPadDetails />;
+        return (
+          <MarriageCertificateDetail search={search} pickDate={pickDate} />
+        );
+      case "LetterPad":
+        return <LetterPadDetails pickDate={pickDate} />;
       default:
         return null;
     }
@@ -80,10 +89,12 @@ export default function Home() {
   const handleMarriageForm = () => setMarriageForm(true);
 
   // Letter pad modal
-  const [letterPad, setLetterPad] = useState(false)
-  const handleLetterPad = () => setLetterPad(true)
+  const [letterPad, setLetterPad] = useState(false);
+  const handleLetterPad = () => setLetterPad(true);
 
   const [editdata, setEditData] = useState();
+  const [search, setSearch] = useState("");
+  const [pickDate, setPickDate] = useState();
 
   return (
     <main>
@@ -97,19 +108,47 @@ export default function Home() {
         >
           Add New
         </button>
-        <br/>
-        <div className="flex gap-[10px]">
-        {tabs.map((val, idx) => (
-          <button
-            key={idx}
-            onClick={() => setTabActive(val)}
-            className={` border-black rounded-xl p-4 text-black px-2 py-1 mb-5 mr-2 ${
-              val == tabActive ? "bg-blue-300 text-black" : ""
-            }`}
-          >
-            {val}
-          </button>
-        ))}
+        <br />
+        {/* Search button */}
+        <div className="flex items-center justify-between  p-2 w-[50%]">
+          <div className="border border-gray-300 rounded-lg">
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search Name..."
+              className=" px-3 py-2 border-none rounded-lg focus:outline-none"
+            />
+          </div>
+          <div>
+            {/* date picker */}
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DemoContainer
+                components={["DatePicker", "DatePicker", "DatePicker"]}
+              >
+                <DatePicker
+                  label={'"month" and "year"'}
+                  views={["month", "year"]}
+                  value={pickDate}
+                  onChange={(e) => setPickDate(e)}
+                />
+              </DemoContainer>
+            </LocalizationProvider>
+          </div>
+        </div>
+
+        <div className="flex gap-[10px] justify-center">
+          {tabs.map((val, idx) => (
+            <button
+              key={idx}
+              onClick={() => setTabActive(val)}
+              className={` border-black rounded-xl p-4 text-black px-2 py-1 mb-5 mr-2 ${
+                val == tabActive ? "bg-blue-300 text-black" : ""
+              }`}
+            >
+              {val}
+            </button>
+          ))}
         </div>
         {renderPage()}
       </div>
@@ -151,10 +190,7 @@ export default function Home() {
                 >
                   Marriage Form
                 </MenuItem>
-                <MenuItem
-                  value={letterPad}
-                  onClick={() => handleLetterPad()}
-                >
+                <MenuItem value={letterPad} onClick={() => handleLetterPad()}>
                   LetterPad
                 </MenuItem>
               </Select>
@@ -185,7 +221,7 @@ export default function Home() {
           setMarriageForm={setMarriageForm}
         />
         {/* Letter Pad */}
-        <LetterPadModel  letterPad = {letterPad} setLetterPad={setLetterPad}/>
+        <LetterPadModel letterPad={letterPad} setLetterPad={setLetterPad} />
       </div>
     </main>
   );

@@ -2,8 +2,9 @@
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import EditBaptismModel from "./EditBaptismModel";
+import dayjs from "dayjs";
 
-const BaptismDetails = () => {
+const BaptismDetails = ({search,pickDate}) => {
     //Date formate
   const convertIdToDate = (id) => {
     const [datePart, timePart] = id.split("-").slice(1);
@@ -14,6 +15,33 @@ const BaptismDetails = () => {
   };
 
   const [data, setData] = useState([]);
+  const[filteredData, setFilteredData] = useState(data);
+  useEffect(() => {
+    let result = data;
+
+    // Filter by name search
+    if (search.length > 0) {
+      result = result.filter((val) => val.name.toLowerCase().includes(search.toLowerCase()));
+    }
+
+    // Filter by selected date (year and month)
+    if (pickDate) {
+      const selectedMonth = dayjs(pickDate).format('MM-YYYY');
+      result = result.filter((val) => {
+        // Assuming date field exists and is in a valid date format
+        // Replace `dateField` with the actual date field in your data
+        const dateField = convertIdToDate(val.id); // or any other date field you want to filter by
+        if (dateField) {
+          const formattedDate = dayjs(dateField).format('MM-YYYY');
+          return formattedDate === selectedMonth;
+        }
+        return false;
+      });
+    }
+
+    setFilteredData(result);
+  }, [search, pickDate, data]);
+
   let router = useRouter();
   // Fetch data from API
   useEffect(() => {
@@ -23,6 +51,7 @@ const BaptismDetails = () => {
         const response = await fetch(`/api/dataHandler?fileName=${fileName}`);
         const result = await response.json();
         setData(result);
+        setFilteredData(result);
       } catch (error) {
         console.error("Failed to fetch data", error);
       }
@@ -72,7 +101,7 @@ const BaptismDetails = () => {
           </tr>
         </thead>
         <tbody>
-          {data.map((val, idx) => (
+          {filteredData.length > 0 && filteredData.map((val, idx) => (
             <tr key={idx}>
               <td className="py-2 px-4 border-b text-center">{idx + 1}</td>
               <td className="py-2 px-4 border-b text-center">{val.name}</td>
